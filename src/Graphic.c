@@ -77,8 +77,8 @@ int graphicInitTextTurn() {
 int graphicInitTextWin() {
     SDL_Color colorText = {255, 255, 0, 255};
     char *textWin[] = {
-        "Le joueur 1 a gagné !",
-        "Le joueur 2 a gagné !"
+        "Le joueur 1 a gagne !",
+        "Le joueur 2 a gagne !"
     };
 
     for (int i = 0; i < 2; i++) {
@@ -117,6 +117,10 @@ void graphicDisplayTurn(const int turn) {
     rect.w = game.graphic.textTurnPos[turn].w;
     rect.h = game.graphic.textTurnPos[turn].h;
     SDL_RenderCopy(game.window.renderer, game.graphic.textTurn[turn], NULL, &rect);
+}
+
+void graphicDisplayWin(const int player) {
+    SDL_RenderCopy(game.window.renderer, game.graphic.textWin[player-1], NULL, &game.graphic.textWinPos[player-1]);
 }
 
 void graphicsDisplayJeton() {

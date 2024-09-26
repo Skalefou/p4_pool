@@ -8,13 +8,17 @@ int graphicInit();
 int graphicInitSprites();
 int graphicInitTextTurn();
 int graphicInitTextWin();
+
+void graphicsDisplayJeton();
+void graphicDisplayGrid();
+void graphicDisplayTurn(const int turn);
+void graphicDisplayWin(const int player);
+
 void graphicClose();
 void graphicCloseSprites();
 void graphicCloseTextTurn();
 void graphicCloseTextWin();
-void graphicsDisplayJeton();
-void graphicDisplayGrid();
-void graphicDisplayTurn(const int turn);
+
 
 typedef struct {
     // Sprites

@@ -23,6 +23,7 @@ typedef struct {
     Window window;
     Graphic graphic;
     int turnPlayer;
+    int playerWin;
     Map map;
 } Game;
 

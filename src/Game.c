@@ -17,6 +17,7 @@ int gameInit() {
     }
 
     game.turnPlayer = 0;
+    game.playerWin = 0;
     return 0;
 }
 
@@ -32,7 +33,7 @@ void gameClickEvent(const int x, const int y) {
         if (isLimitColumn(columnClick)) {
             setJeton(game.turnPlayer + 1, columnClick);
             game.turnPlayer = (game.turnPlayer + 1) % 2;
-            gameIsWin();
+            game.playerWin = gameIsWin();
         }
     }
 }
@@ -97,25 +98,27 @@ void gameRuntime() {
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT) {
                 run = 0;
-            } else if (event.type == SDL_KEYDOWN) {
+            } else if (event.type == SDL_KEYDOWN && game.playerWin == 0) {
                 if (event.key.keysym.sym == SDLK_ESCAPE) {
                     run = 0;
                 }
+            } else if (event.type == SDL_KEYDOWN && game.playerWin > 0) {
+                if (event.key.keysym.sym == SDLK_ESCAPE) {
+                    gameClose();
+                    gameInit();
+                }
             } else if (event.type == SDL_MOUSEBUTTONDOWN) {
-                if (event.button.button == SDL_BUTTON_LEFT) {
+                if (event.button.button == SDL_BUTTON_LEFT && game.playerWin == 0) {
                     int mouseX, mouseY;
                     SDL_GetMouseState(&mouseX, &mouseY);
                     if (mouseX >= 0 && mouseX < game.window.width && mouseY >= 0 && mouseY < game.window.height) {
                         gameClickEvent(mouseX, mouseY);
                     }
+                } else if (event.button.button == SDL_BUTTON_LEFT && game.playerWin > 0) {
+                    gameClose();
+                    gameInit();
                 }
             }
-        }
-
-        int playerWin = gameIsWin();
-        if (playerWin > 0) {
-            printf("Player %d win\n", playerWin);
-            run = 0;
         }
 
         // Affichage
@@ -123,6 +126,11 @@ void gameRuntime() {
         graphicDisplayGrid();
         graphicsDisplayJeton();
         graphicDisplayTurn(game.turnPlayer);
+
+        if (game.playerWin > 0) {
+            graphicDisplayWin(game.playerWin);
+        }
+
         SDL_RenderPresent(game.window.renderer);
     }
 
