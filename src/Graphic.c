@@ -3,15 +3,25 @@
 #include <SDL2/SDL_image.h>
 
 int graphicInit() {
-    SDL_Color colorText = {232, 252, 252, 255};
+    if (graphicInitSprites()) {
+        return 1;
+    }
+
+    if (graphicInitTextTurn()) {
+        return 1;
+    }
+
+    if (graphicInitTextWin()) {
+        return 1;
+    }
+
+    return 0;
+}
+
+int graphicInitSprites() {
     const char *spritePaths[] = {
         "./resource/player1.png",
         "./resource/player2.png"
-    };
-
-    const char *textTurn[] = {
-        "Au tours du joueur 1 !",
-        "Au tours du joueur 2 !"
     };
 
     game.graphic.spriteNb = 2;
@@ -30,6 +40,15 @@ int graphicInit() {
             return 1;
         }
     }
+    return 0;
+}
+
+int graphicInitTextTurn() {
+    const SDL_Color colorText = {232, 252, 252, 255};
+    const char *textTurn[] = {
+        "Au tours du joueur 1 !",
+        "Au tours du joueur 2 !"
+    };
 
     game.graphic.font = TTF_OpenFont("./resource/font.ttf", 24);
     if (!game.graphic.font) {
@@ -51,7 +70,34 @@ int graphicInit() {
         }
         SDL_QueryTexture(game.graphic.textTurn[i], NULL, NULL, &game.graphic.textTurnPos[i].w, &game.graphic.textTurnPos[i].h);
     }
+    game.graphic.textTurnNb = 2;
+    return 0;
+}
 
+int graphicInitTextWin() {
+    SDL_Color colorText = {255, 255, 0, 255};
+    char *textWin[] = {
+        "Le joueur 1 a gagné !",
+        "Le joueur 2 a gagné !"
+    };
+
+    for (int i = 0; i < 2; i++) {
+        SDL_Surface *surface = TTF_RenderText_Solid(game.graphic.font, textWin[i], colorText);
+        if (!surface) {
+            printf("TTF_RenderText_Solid Error: %s\n", TTF_GetError());
+            return 1;
+        }
+        game.graphic.textWin[i] = SDL_CreateTextureFromSurface(game.window.renderer, surface);
+        SDL_FreeSurface(surface);
+        if (!game.graphic.textWin[i]) {
+            printf("SDL_CreateTextureFromSurface Error: %s\n", SDL_GetError());
+            return 1;
+        }
+        SDL_QueryTexture(game.graphic.textWin[i], NULL, NULL, &game.graphic.textWinPos[i].w, &game.graphic.textWinPos[i].h);
+        game.graphic.textWinPos[i].x = (game.window.width - game.graphic.textWinPos[i].w) / 2;
+        game.graphic.textWinPos[i].y = (game.window.height - game.graphic.textWinPos[i].h) / 2;
+    }
+    game.graphic.textWinNb = 2;
     return 0;
 }
 
@@ -84,21 +130,38 @@ void graphicsDisplayJeton() {
     }
 }
 
-void graphicClose() {
+void graphicCloseSprites() {
+    for (int i = 0; i < game.graphic.spriteNb; i++) {
+        if (game.graphic.sprite[i] != NULL) {
+            SDL_DestroyTexture(game.graphic.sprite[i]);
+        }
+    }
+}
 
+void graphicCloseTextTurn() {
     for (int i = 0; i < 2; i++) {
         if (game.graphic.textTurn[i] != NULL) {
             SDL_DestroyTexture(game.graphic.textTurn[i]);
         }
     }
 
+}
+
+void graphicCloseTextWin() {
+    for (int i = 0; i < game.graphic.textWinNb; i++) {
+        if (game.graphic.textWin[i] != NULL) {
+            SDL_DestroyTexture(game.graphic.textWin[i]);
+        }
+    }
+}
+
+void graphicClose() {
+    graphicCloseTextWin();
+    graphicCloseTextTurn();
+
     if (game.graphic.font != NULL) {
         TTF_CloseFont(game.graphic.font);
     }
 
-    for (int i = 0; i < game.graphic.spriteNb; i++) {
-        if (game.graphic.sprite[i] != NULL) {
-            SDL_DestroyTexture(game.graphic.sprite[i]);
-        }
-    }
+    graphicCloseSprites();
 }

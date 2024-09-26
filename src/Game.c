@@ -112,8 +112,11 @@ void gameRuntime() {
             }
         }
 
-        // Logique de jeu
-
+        int playerWin = gameIsWin();
+        if (playerWin > 0) {
+            printf("Player %d win\n", playerWin);
+            run = 0;
+        }
 
         // Affichage
         SDL_RenderClear(game.window.renderer);
