@@ -1,5 +1,6 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
+#include <SDL2/SDL_net.h>
 #include <stdio.h>
 
 int main(int argc, char *argv[]) {
@@ -14,6 +15,14 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
+    if (SDLNet_Init() != 0) {
+        printf("SDLNet_Init Error: %s\n", SDLNet_GetError());
+        IMG_Quit();
+        SDL_Quit();
+        return 1;
+    }
+
+    SDLNet_Quit();
     IMG_Quit();
     SDL_Quit();
     return 0;

@@ -56,6 +56,20 @@ build CMakeFiles/p4_pool.dir/src/main.c.o: C_COMPILER__p4_pool_unscanned_Debug /
   OBJECT_DIR = CMakeFiles/p4_pool.dir
   OBJECT_FILE_DIR = CMakeFiles/p4_pool.dir/src
 
+build CMakeFiles/p4_pool.dir/src/Window.c.o: C_COMPILER__p4_pool_unscanned_Debug /home/user/projet/p4_pool/src/Window.c || cmake_object_order_depends_target_p4_pool
+  DEP_FILE = CMakeFiles/p4_pool.dir/src/Window.c.o.d
+  FLAGS = -std=gnu11 -fdiagnostics-color=always
+  INCLUDES = -I/usr/include/SDL2
+  OBJECT_DIR = CMakeFiles/p4_pool.dir
+  OBJECT_FILE_DIR = CMakeFiles/p4_pool.dir/src
+
+build CMakeFiles/p4_pool.dir/src/Game.c.o: C_COMPILER__p4_pool_unscanned_Debug /home/user/projet/p4_pool/src/Game.c || cmake_object_order_depends_target_p4_pool
+  DEP_FILE = CMakeFiles/p4_pool.dir/src/Game.c.o.d
+  FLAGS = -std=gnu11 -fdiagnostics-color=always
+  INCLUDES = -I/usr/include/SDL2
+  OBJECT_DIR = CMakeFiles/p4_pool.dir
+  OBJECT_FILE_DIR = CMakeFiles/p4_pool.dir/src
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target p4_pool
@@ -64,8 +78,8 @@ build CMakeFiles/p4_pool.dir/src/main.c.o: C_COMPILER__p4_pool_unscanned_Debug /
 #############################################
 # Link the executable p4_pool
 
-build p4_pool: C_EXECUTABLE_LINKER__p4_pool_Debug CMakeFiles/p4_pool.dir/src/main.c.o
-  LINK_LIBRARIES = -lSDL2  -lSDL2_image  -lSDL2  -lSDL2_net  -lSDL2  -lSDL2_image  -lSDL2_net
+build p4_pool: C_EXECUTABLE_LINKER__p4_pool_Debug CMakeFiles/p4_pool.dir/src/main.c.o CMakeFiles/p4_pool.dir/src/Window.c.o CMakeFiles/p4_pool.dir/src/Game.c.o
+  LINK_LIBRARIES = -lSDL2  -lSDL2_image  -lSDL2  -lSDL2_net  -lSDL2  -lSDL2_ttf  -lSDL2  -lSDL2_image  -lSDL2_net  -lSDL2_ttf
   OBJECT_DIR = CMakeFiles/p4_pool.dir
   POST_BUILD = :
   PRE_LINK = :
