@@ -1,4 +1,5 @@
 #include "Map.h"
+#include "Game.h"
 
 int mapInit(const int x, const int y) {
     game.map.alloc = 0;

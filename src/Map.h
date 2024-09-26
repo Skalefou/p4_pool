@@ -2,7 +2,6 @@
 #define MAP_H
 
 #include <stdlib.h>
-#include "Game.h"
 
 #define MAP_SIZE_X_LIMIT 20
 #define MAP_SIZE_Y_LIMIT 20
