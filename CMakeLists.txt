@@ -3,19 +3,14 @@ project(p4_pool C)
 
 set(CMAKE_C_STANDARD 11)
 
-# Find pkg-config
 find_package(PkgConfig REQUIRED)
 
-# Find the SDL2, SDL2_image, and SDL2_net packages
 pkg_check_modules(SDL2 REQUIRED sdl2)
 pkg_check_modules(SDL2_image REQUIRED SDL2_image)
 pkg_check_modules(SDL2_net REQUIRED SDL2_net)
 
-# Include the header directories
 include_directories(${SDL2_INCLUDE_DIRS} ${SDL2_image_INCLUDE_DIRS} ${SDL2_net_INCLUDE_DIRS})
 
-# Add your executable
 add_executable(p4_pool src/main.c)
 
-# Link the SDL2, SDL2_image, and SDL2_net libraries to your executable
 target_link_libraries(p4_pool ${SDL2_LIBRARIES} ${SDL2_image_LIBRARIES} ${SDL2_net_LIBRARIES})
