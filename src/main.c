@@ -1,6 +1,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_net.h>
+#include <SDL2/SDL_ttf.h>
 #include <stdio.h>
 
 int main(int argc, char *argv[]) {
@@ -21,7 +22,15 @@ int main(int argc, char *argv[]) {
         SDL_Quit();
         return 1;
     }
+    if (TTF_Init() != 0) {
+        printf("TTF_Init Error: %s\n", TTF_GetError());
+        SDLNet_Quit();
+        IMG_Quit();
+        SDL_Quit();
+        return 1;
+    }
 
+    TTF_Quit();
     SDLNet_Quit();
     IMG_Quit();
     SDL_Quit();
