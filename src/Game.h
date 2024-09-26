@@ -5,8 +5,17 @@
 #ifndef GAME_H
 #define GAME_H
 
-typedef struct {
+#include <SDL2/SDL.h>
+#include "Window.h"
 
+int gameInit();
+void gameClose();
+void gameRuntime();
+
+typedef struct {
+    Window window;
 } Game;
+
+extern Game game;
 
 #endif //GAME_H
