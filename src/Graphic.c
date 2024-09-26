@@ -3,7 +3,7 @@
 #include <SDL2/SDL_image.h>
 
 int graphicInit() {
-    SDL_Color colorText = {255, 255, 255, 255};
+    SDL_Color colorText = {232, 252, 252, 255};
     const char *spritePaths[] = {
         "./resource/player1.png",
         "./resource/player2.png"
@@ -31,7 +31,7 @@ int graphicInit() {
         }
     }
 
-    game.graphic.font = TTF_OpenFont("./resource/font.ttf", 16);
+    game.graphic.font = TTF_OpenFont("./resource/font.ttf", 24);
     if (!game.graphic.font) {
         printf("TTF_OpenFont Error: %s\n", TTF_GetError());
         return 1;
@@ -49,6 +49,7 @@ int graphicInit() {
             printf("SDL_CreateTextureFromSurface Error: %s\n", SDL_GetError());
             return 1;
         }
+        SDL_QueryTexture(game.graphic.textTurn[i], NULL, NULL, &game.graphic.textTurnPos[i].w, &game.graphic.textTurnPos[i].h);
     }
 
     return 0;
@@ -63,6 +64,13 @@ void graphicDisplayGrid() {
         SDL_RenderDrawLine(game.window.renderer, 0, y, game.window.width, y);
     }
     SDL_SetRenderDrawColor(game.window.renderer, 0, 0, 0, 255);
+}
+
+void graphicDisplayTurn(const int turn) {
+    SDL_Rect rect = {0, 0, 0, 0};
+    rect.w = game.graphic.textTurnPos[turn].w;
+    rect.h = game.graphic.textTurnPos[turn].h;
+    SDL_RenderCopy(game.window.renderer, game.graphic.textTurn[turn], NULL, &rect);
 }
 
 void graphicClose() {

@@ -7,6 +7,7 @@
 int graphicInit();
 void graphicClose();
 void graphicDisplayGrid();
+void graphicDisplayTurn(const int turn);
 
 typedef struct {
     // Sprites
@@ -16,6 +17,7 @@ typedef struct {
     // Textes
     TTF_Font *font;
     SDL_Texture *textTurn[2];
+    SDL_Rect textTurnPos[2];
     int textTurnNb;
  } Graphic;
 
