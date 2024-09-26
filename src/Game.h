@@ -12,6 +12,10 @@
 
 int gameInit();
 void gameClickEvent(const int x, const int y);
+int gameIsWinHorizontal();
+int gameIsWinVertical();
+int gameIsWinDiagonal();
+int gameIsWin();
 void gameClose();
 void gameRuntime();
 
