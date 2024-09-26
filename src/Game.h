@@ -7,6 +7,7 @@
 
 #include <SDL2/SDL.h>
 #include "Window.h"
+#include "Graphic.h"
 
 int gameInit();
 void gameClose();
@@ -14,6 +15,7 @@ void gameRuntime();
 
 typedef struct {
     Window window;
+    Graphic graphic;
 } Game;
 
 extern Game game;

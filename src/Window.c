@@ -6,7 +6,7 @@ int windowInit() {
         SDL_WINDOWPOS_CENTERED,
         SDL_WINDOWPOS_CENTERED,
         SCREEN_WIDTH_DEFAULT, SCREEN_HEIGHT_DEFAULT,
-        SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_MAXIMIZED);
+        SDL_WINDOW_SHOWN);
     if (game.window.screen == NULL) {
         printf("SDL_CreateWindow Error: %s\n", SDL_GetError());
         return 1;
@@ -18,6 +18,8 @@ int windowInit() {
         printf("SDL_CreateRenderer Error: %s\n", SDL_GetError());
         return 1;
     }
+    game.window.width = SCREEN_WIDTH_DEFAULT;
+    game.window.height = SCREEN_HEIGHT_DEFAULT;
 
     return 0;
 }
@@ -29,4 +31,6 @@ void windowClose() {
     if (game.window.screen != NULL) {
         SDL_DestroyWindow(game.window.screen);
     }
+    game.window.width = 0;
+    game.window.height = 0;
 }
