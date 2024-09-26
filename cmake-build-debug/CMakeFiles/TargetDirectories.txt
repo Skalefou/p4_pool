@@ -1,0 +1,3 @@
+/home/user/projet/p4_pool/cmake-build-debug/CMakeFiles/p4_pool.dir
+/home/user/projet/p4_pool/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/user/projet/p4_pool/cmake-build-debug/CMakeFiles/rebuild_cache.dir
