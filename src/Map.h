@@ -7,6 +7,8 @@
 #define MAP_SIZE_Y_LIMIT 20
 
 int mapInit(const int x, const int y);
+int isLimitColumn(const int column);
+void setJeton(const int player, const int column);
 void mapClose();
 
 typedef struct {

@@ -18,6 +18,7 @@ add_executable(p4_pool src/main.c
         src/Game.h
         src/Window.h
         src/Graphic.c
-        src/Map.c)
+        src/Map.c
+        src/Config.c)
 
 target_link_libraries(p4_pool ${SDL2_LIBRARIES} ${SDL2_image_LIBRARIES} ${SDL2_net_LIBRARIES} ${SDL2_ttf_LIBRARIES})

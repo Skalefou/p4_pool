@@ -5,10 +5,21 @@
 #include <SDL2/SDL_ttf.h>
 
 int graphicInit();
-void graphicClose();
+int graphicInitSprites();
+int graphicInitTextTurn();
+int graphicInitTextWin();
+
+void graphicsDisplayJeton();
 void graphicDisplayGrid();
 void graphicDisplayTurn(const int turn);
 void bandeau();
+void graphicDisplayWin(const int player);
+
+void graphicClose();
+void graphicCloseSprites();
+void graphicCloseTextTurn();
+void graphicCloseTextWin();
+
 
 typedef struct {
     // Sprites
@@ -20,6 +31,11 @@ typedef struct {
     SDL_Texture *textTurn[2];
     SDL_Rect textTurnPos[2];
     int textTurnNb;
+
+    SDL_Rect textWinPos[2];
+    SDL_Texture *textWin[2];
+    int textWinNb;
+
  } Graphic;
 
 #endif

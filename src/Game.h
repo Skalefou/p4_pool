@@ -12,6 +12,10 @@
 
 int gameInit();
 void gameClickEvent(const int x, const int y);
+int gameIsWinHorizontal();
+int gameIsWinVertical();
+int gameIsWinDiagonal();
+int gameIsWin();
 void gameClose();
 void gameRuntime();
 
@@ -19,6 +23,7 @@ typedef struct {
     Window window;
     Graphic graphic;
     int turnPlayer;
+    int playerWin;
     Map map;
 } Game;
 
