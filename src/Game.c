@@ -28,7 +28,12 @@ void gameClose() {
 
 void gameClickEvent(const int x, const int y) {
     int columnClick = x / 64;
-
+    if (columnClick >= 0 && columnClick < game.map.sizeX) {
+        if (isLimitColumn(columnClick)) {
+            setJeton(game.turnPlayer + 1, columnClick);
+            game.turnPlayer = (game.turnPlayer + 1) % 2;
+        }
+    }
 }
 
 void gameRuntime() {
@@ -65,6 +70,7 @@ void gameRuntime() {
         // Affichage
         SDL_RenderClear(game.window.renderer);
         graphicDisplayGrid();
+        graphicsDisplayJeton();
         graphicDisplayTurn(game.turnPlayer);
         SDL_RenderPresent(game.window.renderer);
     }

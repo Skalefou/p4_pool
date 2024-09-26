@@ -73,6 +73,17 @@ void graphicDisplayTurn(const int turn) {
     SDL_RenderCopy(game.window.renderer, game.graphic.textTurn[turn], NULL, &rect);
 }
 
+void graphicsDisplayJeton() {
+    for (int x = 0; x < game.map.sizeX; x++) {
+        for (int y = 0; y < game.map.sizeY; y++) {
+            if (game.map.grid[x][y] != 0) {
+                SDL_Rect rect = {x * 64, y * 64, 64, 64};
+                SDL_RenderCopy(game.window.renderer, game.graphic.sprite[game.map.grid[x][y] - 1], NULL, &rect);
+            }
+        }
+    }
+}
+
 void graphicClose() {
 
     for (int i = 0; i < 2; i++) {

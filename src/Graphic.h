@@ -6,6 +6,7 @@
 
 int graphicInit();
 void graphicClose();
+void graphicsDisplayJeton();
 void graphicDisplayGrid();
 void graphicDisplayTurn(const int turn);
 
