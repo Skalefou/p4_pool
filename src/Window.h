@@ -4,7 +4,7 @@
 #include <SDL2/SDL.h>
 
 #define SCREEN_WIDTH_DEFAULT 448
-#define SCREEN_HEIGHT_DEFAULT 384
+#define SCREEN_HEIGHT_DEFAULT 424
 
 int windowInit();
 void windowClose();

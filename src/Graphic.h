@@ -8,6 +8,7 @@ int graphicInit();
 void graphicClose();
 void graphicDisplayGrid();
 void graphicDisplayTurn(const int turn);
+void bandeau();
 
 typedef struct {
     // Sprites

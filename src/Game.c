@@ -66,7 +66,9 @@ void gameRuntime() {
         SDL_RenderClear(game.window.renderer);
         graphicDisplayGrid();
         graphicDisplayTurn(game.turnPlayer);
+        bandeau();
         SDL_RenderPresent(game.window.renderer);
+
     }
 
     gameClose();
