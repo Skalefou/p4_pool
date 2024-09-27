@@ -172,9 +172,9 @@ void graphicClose() {
 
 void bandeau() {
     int tailleTxtCentre = 200;
-    int debutTxtCentre = SCREEN_WIDTH_DEFAULT / 2-tailleTxtCentre/2;
-    SDL_Rect rectBandeau = {0, SCREEN_HEIGHT_DEFAULT - 40, SCREEN_WIDTH_DEFAULT, 40};
-    SDL_Rect rectTextTurn = {debutTxtCentre, SCREEN_HEIGHT_DEFAULT+5 - 40, tailleTxtCentre, 30};
+    int debutTxtCentre = game.window.width / 2-tailleTxtCentre/2;
+    SDL_Rect rectBandeau = {0, game.window.height - 40, game.window.width, 40};
+    SDL_Rect rectTextTurn = {debutTxtCentre, game.window.height+5 - 40, tailleTxtCentre, 30};
     SDL_SetRenderDrawColor(game.window.renderer, 255, 0, 0, 255);
     SDL_RenderFillRect(game.window.renderer, &rectBandeau);
     SDL_RenderCopy(game.window.renderer, game.graphic.textTurn[0], NULL, &rectTextTurn);

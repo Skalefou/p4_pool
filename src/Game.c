@@ -4,7 +4,11 @@
 Game game;
 
 int gameInit() {
-    if (windowInit()) {
+    if (configInit()) {
+        return 1;
+    }
+
+    if (windowInit(game.config.rows, game.config.columns)) {
         return 1;
     }
 
@@ -12,7 +16,7 @@ int gameInit() {
         return 1;
     }
 
-    if (mapInit(7, 6)) {
+    if (mapInit(game.config.rows, game.config.columns)) {
         return 1;
     }
 
@@ -22,6 +26,7 @@ int gameInit() {
 }
 
 void gameClose() {
+    configClose();
     mapClose();
     graphicClose();
     windowClose();
@@ -38,10 +43,18 @@ void gameClickEvent(const int x, const int y) {
     }
 }
 
-int gameIsWinHorizontal() {
+int gameIsWinVertical() {
     for (int x = 0; x < game.map.sizeX; x++) {
-        for(int i = 0; i < game.map.sizeY-3; i++) {
-            if (game.map.grid[x][i] != 0 && game.map.grid[x][i] == game.map.grid[x][i+1] && game.map.grid[x][i] == game.map.grid[x][i+2] && game.map.grid[x][i] == game.map.grid[x][i+3]) {
+        for (int i = 0; i <= game.map.sizeY - game.config.winNumberJeton; i++) {
+            int count = 1;
+            for (int j = 1; j < game.config.winNumberJeton; j++) {
+                if (game.map.grid[x][i] != 0 && game.map.grid[x][i] == game.map.grid[x][i + j]) {
+                    count++;
+                } else {
+                    break;
+                }
+            }
+            if (count == game.config.winNumberJeton) {
                 return game.map.grid[x][i];
             }
         }
@@ -49,10 +62,18 @@ int gameIsWinHorizontal() {
     return 0;
 }
 
-int gameIsWinVertical() {
+int gameIsWinHorizontal() {
     for (int y = 0; y < game.map.sizeY; y++) {
-        for(int i = 0; i < game.map.sizeX-3; i++) {
-            if (game.map.grid[i][y] != 0 && game.map.grid[i][y] == game.map.grid[i+1][y] && game.map.grid[i][y] == game.map.grid[i+2][y] && game.map.grid[i][y] == game.map.grid[i+3][y]) {
+        for (int i = 0; i <= game.map.sizeX - game.config.winNumberJeton; i++) {
+            int count = 1;
+            for (int j = 1; j < game.config.winNumberJeton; j++) {
+                if (game.map.grid[i][y] != 0 && game.map.grid[i][y] == game.map.grid[i + j][y]) {
+                    count++;
+                } else {
+                    break;
+                }
+            }
+            if (count == game.config.winNumberJeton) {
                 return game.map.grid[i][y];
             }
         }
@@ -61,16 +82,32 @@ int gameIsWinVertical() {
 }
 
 int gameIsWinDiagonal() {
-    for (int x = 0; x < game.map.sizeX-3; x++) {
-        for (int y = 0; y < game.map.sizeY-3; y++) {
-            if (game.map.grid[x][y] != 0 && game.map.grid[x][y] == game.map.grid[x+1][y+1] && game.map.grid[x][y] == game.map.grid[x+2][y+2] && game.map.grid[x][y] == game.map.grid[x+3][y+3]) {
+    for (int x = 0; x <= game.map.sizeX - game.config.winNumberJeton; x++) {
+        for (int y = 0; y <= game.map.sizeY - game.config.winNumberJeton; y++) {
+            int count = 1;
+            for (int j = 1; j < game.config.winNumberJeton; j++) {
+                if (game.map.grid[x][y] != 0 && game.map.grid[x][y] == game.map.grid[x + j][y + j]) {
+                    count++;
+                } else {
+                    break;
+                }
+            }
+            if (count == game.config.winNumberJeton) {
                 return game.map.grid[x][y];
             }
         }
     }
-    for (int x = 0; x < game.map.sizeX-3; x++) {
-        for (int y = 3; y < game.map.sizeY; y++) {
-            if (game.map.grid[x][y] != 0 && game.map.grid[x][y] == game.map.grid[x+1][y-1] && game.map.grid[x][y] == game.map.grid[x+2][y-2] && game.map.grid[x][y] == game.map.grid[x+3][y-3]) {
+    for (int x = 0; x <= game.map.sizeX - game.config.winNumberJeton; x++) {
+        for (int y = game.config.winNumberJeton - 1; y < game.map.sizeY; y++) {
+            int count = 1;
+            for (int j = 1; j < game.config.winNumberJeton; j++) {
+                if (game.map.grid[x][y] != 0 && game.map.grid[x][y] == game.map.grid[x + j][y - j]) {
+                    count++;
+                } else {
+                    break;
+                }
+            }
+            if (count == game.config.winNumberJeton) {
                 return game.map.grid[x][y];
             }
         }

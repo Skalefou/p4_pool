@@ -5,8 +5,9 @@
 
 #define SCREEN_WIDTH_DEFAULT 448
 #define SCREEN_HEIGHT_DEFAULT 424
+#define HEIGHT_BANDEAU 40
 
-int windowInit();
+int windowInit(const int rows, const int columns);
 void windowClose();
 
 typedef struct  {

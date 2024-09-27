@@ -9,6 +9,7 @@
 #include "Window.h"
 #include "Graphic.h"
 #include "Map.h"
+#include "Config.h"
 
 int gameInit();
 void gameClickEvent(const int x, const int y);
@@ -25,6 +26,7 @@ typedef struct {
     int turnPlayer;
     int playerWin;
     Map map;
+    Config config;
 } Game;
 
 extern Game game;
