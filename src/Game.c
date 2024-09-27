@@ -125,7 +125,7 @@ void gameRuntime() {
         SDL_RenderClear(game.window.renderer);
         graphicDisplayGrid();
         graphicsDisplayJeton();
-        graphicDisplayTurn(game.turnPlayer);
+        //graphicDisplayTurn(game.turnPlayer);
         bandeau();
 
         if (game.playerWin > 0) {
