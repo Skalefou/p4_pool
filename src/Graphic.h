@@ -24,16 +24,16 @@ void graphicCloseTextWin();
 typedef struct {
     // Sprites
     int spriteNb;
-    SDL_Texture *sprite[2];
+    SDL_Texture *sprite[5];
 
     // Textes
     TTF_Font *font;
-    SDL_Texture *textTurn[2];
-    SDL_Rect textTurnPos[2];
+    SDL_Texture *textTurn[5];
+    SDL_Rect textTurnPos[5];
     int textTurnNb;
 
-    SDL_Rect textWinPos[2];
-    SDL_Texture *textWin[2];
+    SDL_Rect textWinPos[5];
+    SDL_Texture *textWin[5];
     int textWinNb;
 
  } Graphic;

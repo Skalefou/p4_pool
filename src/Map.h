@@ -10,6 +10,7 @@ int mapInit(const int x, const int y);
 int isLimitColumn(const int column);
 void setJeton(const int player, const int column);
 void mapClose();
+void mapReset();
 
 typedef struct {
     int **grid;

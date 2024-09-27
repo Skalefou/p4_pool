@@ -43,3 +43,11 @@ void mapClose() {
     }
     game.map.alloc = 0;
 }
+
+void mapReset() {
+    for(int i = 0; i < game.map.sizeX; i++) {
+        for(int j = 0; j < game.map.sizeY; j++) {
+            game.map.grid[i][j] = 0;
+        }
+    }
+}

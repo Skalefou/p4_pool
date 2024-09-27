@@ -37,10 +37,16 @@ void gameClickEvent(const int x, const int y) {
     if (columnClick >= 0 && columnClick < game.map.sizeX) {
         if (isLimitColumn(columnClick)) {
             setJeton(game.turnPlayer + 1, columnClick);
-            game.turnPlayer = (game.turnPlayer + 1) % 2;
+            game.turnPlayer = game.turnPlayer < game.config.playerNb-1 ? game.turnPlayer + 1 : 0;
             game.playerWin = gameIsWin();
         }
     }
+}
+
+void gameReset() {
+    mapReset();
+    game.turnPlayer = 0;
+    game.playerWin = 0;
 }
 
 int gameIsWinVertical() {
@@ -141,8 +147,7 @@ void gameRuntime() {
                 }
             } else if (event.type == SDL_KEYDOWN && game.playerWin > 0) {
                 if (event.key.keysym.sym == SDLK_ESCAPE) {
-                    gameClose();
-                    gameInit();
+                    gameReset();
                 }
             } else if (event.type == SDL_MOUSEBUTTONDOWN) {
                 if (event.button.button == SDL_BUTTON_LEFT && game.playerWin == 0) {
@@ -152,8 +157,7 @@ void gameRuntime() {
                         gameClickEvent(mouseX, mouseY);
                     }
                 } else if (event.button.button == SDL_BUTTON_LEFT && game.playerWin > 0) {
-                    gameClose();
-                    gameInit();
+                    gameReset();
                 }
             }
         }
@@ -163,7 +167,7 @@ void gameRuntime() {
         graphicDisplayGrid();
         graphicsDisplayJeton();
         graphicDisplayTurn(game.turnPlayer);
-        bandeau();
+        bandeau(game.turnPlayer);
 
         if (game.playerWin > 0) {
             graphicDisplayWin(game.playerWin);

@@ -21,10 +21,13 @@ int graphicInit() {
 int graphicInitSprites() {
     const char *spritePaths[] = {
         "./resource/player1.png",
-        "./resource/player2.png"
+        "./resource/player2.png",
+        "./resource/player3.png",
+        "./resource/player4.png",
+        "./resource/player5.png"
     };
 
-    game.graphic.spriteNb = 2;
+    game.graphic.spriteNb = 5;
     for (int i = 0; i < game.graphic.spriteNb; i++) {
         SDL_Surface *surface = IMG_Load(spritePaths[i]);
         if (!surface) {
@@ -45,9 +48,13 @@ int graphicInitSprites() {
 
 int graphicInitTextTurn() {
     const SDL_Color colorText = {232, 252, 252, 255};
+    game.graphic.textTurnNb = 5;
     const char *textTurn[] = {
         "Au tours du joueur 1 !",
-        "Au tours du joueur 2 !"
+        "Au tours du joueur 2 !",
+        "Au tours du joueur 3 !",
+        "Au tours du joueur 4 !",
+        "Au tours du joueur 5 !"
     };
 
     game.graphic.font = TTF_OpenFont("./resource/font.ttf", 24);
@@ -56,7 +63,7 @@ int graphicInitTextTurn() {
         return 1;
     }
 
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < game.graphic.textTurnNb; i++) {
         SDL_Surface *surface = TTF_RenderText_Solid(game.graphic.font, textTurn[i], colorText);
         if (!surface) {
             printf("TTF_RenderText_Solid Error: %s\n", TTF_GetError());
@@ -70,18 +77,22 @@ int graphicInitTextTurn() {
         }
         SDL_QueryTexture(game.graphic.textTurn[i], NULL, NULL, &game.graphic.textTurnPos[i].w, &game.graphic.textTurnPos[i].h);
     }
-    game.graphic.textTurnNb = 2;
+
     return 0;
 }
 
 int graphicInitTextWin() {
     SDL_Color colorText = {255, 255, 0, 255};
+    game.graphic.textWinNb = 5;
     char *textWin[] = {
         "Le joueur 1 a gagne !",
-        "Le joueur 2 a gagne !"
+        "Le joueur 2 a gagne !",
+        "Le joueur 3 a gagne !",
+        "Le joueur 4 a gagne !",
+        "Le joueur 5 a gagne !"
     };
 
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < game.graphic.textWinNb; i++) {
         SDL_Surface *surface = TTF_RenderText_Solid(game.graphic.font, textWin[i], colorText);
         if (!surface) {
             printf("TTF_RenderText_Solid Error: %s\n", TTF_GetError());
@@ -97,7 +108,6 @@ int graphicInitTextWin() {
         game.graphic.textWinPos[i].x = (game.window.width - game.graphic.textWinPos[i].w) / 2;
         game.graphic.textWinPos[i].y = (game.window.height - game.graphic.textWinPos[i].h) / 2;
     }
-    game.graphic.textWinNb = 2;
     return 0;
 }
 
@@ -170,13 +180,13 @@ void graphicClose() {
     graphicCloseSprites();
 }
 
-void bandeau() {
+void bandeau(int player) {
     int tailleTxtCentre = 200;
     int debutTxtCentre = game.window.width / 2-tailleTxtCentre/2;
     SDL_Rect rectBandeau = {0, game.window.height - 40, game.window.width, 40};
     SDL_Rect rectTextTurn = {debutTxtCentre, game.window.height+5 - 40, tailleTxtCentre, 30};
     SDL_SetRenderDrawColor(game.window.renderer, 255, 0, 0, 255);
     SDL_RenderFillRect(game.window.renderer, &rectBandeau);
-    SDL_RenderCopy(game.window.renderer, game.graphic.textTurn[0], NULL, &rectTextTurn);
+    SDL_RenderCopy(game.window.renderer, game.graphic.textTurn[player], NULL, &rectTextTurn);
     SDL_SetRenderDrawColor(game.window.renderer, 0, 0, 0, 255);
 }

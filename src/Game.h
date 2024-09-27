@@ -13,6 +13,7 @@
 
 int gameInit();
 void gameClickEvent(const int x, const int y);
+void gameReset();
 int gameIsWinHorizontal();
 int gameIsWinVertical();
 int gameIsWinDiagonal();
