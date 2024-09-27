@@ -29,6 +29,7 @@ typedef struct {
     // Textes
     TTF_Font *font;
     SDL_Texture *textTurn[2];
+    SDL_Texture *textScore[5];
     SDL_Rect textTurnPos[2];
     int textTurnNb;
 

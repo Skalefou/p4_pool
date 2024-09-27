@@ -10,6 +10,7 @@
 #include "Graphic.h"
 #include "Map.h"
 
+
 int gameInit();
 void gameClickEvent(const int x, const int y);
 int gameIsWinHorizontal();
@@ -24,6 +25,7 @@ typedef struct {
     Graphic graphic;
     int turnPlayer;
     int playerWin;
+    int scores[5];
     Map map;
 } Game;
 

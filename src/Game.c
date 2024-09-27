@@ -18,6 +18,9 @@ int gameInit() {
 
     game.turnPlayer = 0;
     game.playerWin = 0;
+
+    game.scores[0] = 0;
+    game.scores[1] = 0;
     return 0;
 }
 

@@ -173,23 +173,48 @@ void graphicClose() {
 void bandeau() {
 
 
-    //int tailleScore1 = 10;
-    //int debutScore1 = 0;
+    int tailleScore1 = 200;
+    int debutScore1 = 10;
 
-    //int tailleScore2 = 10;
-    //int debutScore2 = SCREEN_WIDTH_DEFAULT - tailleScore2;
+    int tailleScore2 = 200;
+    int debutScore2 = SCREEN_WIDTH_DEFAULT - tailleScore2;
 
     int tailleTxtCentre = 200;
     int debutTxtCentre = SCREEN_WIDTH_DEFAULT / 2-tailleTxtCentre/2;
 
     SDL_Rect rectBandeau = {0, SCREEN_HEIGHT_DEFAULT - 40, SCREEN_WIDTH_DEFAULT, 40};
     SDL_Rect rectTextTurn = {debutTxtCentre, SCREEN_HEIGHT_DEFAULT+5 - 40, tailleTxtCentre, 30};
-    SDL_Rect rectScore1 = {debutScore1, SCREEN_HEIGHT_DEFAULT+5 - 40, tailleScore1, 30};
-    SDL_Rect rectScore2 = {debutScore2, SCREEN_HEIGHT_DEFAULT+5 - 40, tailleScore2, 30};
+    //SDL_Rect rectScore1 = {debutScore1, SCREEN_HEIGHT_DEFAULT+5 - 40, tailleScore1, 30};
+    //SDL_Rect rectScore2 = {debutScore2, SCREEN_HEIGHT_DEFAULT+5 - 40, tailleScore2, 30};
+    SDL_Rect rectScore1 = {0, 0, 50, 50};
+    SDL_Rect rectScore2 = {100, 100, 150, 150};
     SDL_SetRenderDrawColor(game.window.renderer, 255, 0, 0, 255);
     SDL_RenderFillRect(game.window.renderer, &rectBandeau);
     SDL_RenderCopy(game.window.renderer, game.graphic.textTurn[game.turnPlayer], NULL, &rectTextTurn);
-    //SDL_RenderCopy(game.window.renderer, game.graphic.rectScore1[0], NULL, &rectScore1);
-    //SDL_RenderCopy(game.window.renderer, game.graphic.rectScore2[0], NULL, &rectScore2);
+    SDL_RenderCopy(game.window.renderer, game.graphic.textScore[game.scores[0]], NULL, &rectScore1);
+    SDL_RenderCopy(game.window.renderer, game.graphic.textScore[game.scores[1]], NULL, &rectScore2);
+    /*###########################################################################*/
+                          //A ENLEVER METTRE VARIABLE//
+                                int nbJoueur=4;
+    /*###########################################################################*/
+    if (nbJoueur>=3){
+        int tailleScore3 = 200;
+        int debutScore3 = 10+10;
+        SDL_Rect rectScore3 = {debutScore3, SCREEN_HEIGHT_DEFAULT+5 - 40, tailleScore3, 30};
+        SDL_RenderCopy(game.window.renderer, game.graphic.textScore[game.scores[2]], NULL, &rectScore3);
+    }
+    if(nbJoueur>=4){
+        int tailleScore4 = 200;
+        int debutScore4 = SCREEN_WIDTH_DEFAULT - tailleScore4-10;
+        SDL_Rect rectScore4 = {debutScore4, SCREEN_HEIGHT_DEFAULT+5 - 40, tailleScore4, 30};
+        SDL_RenderCopy(game.window.renderer, game.graphic.textScore[game.scores[3]], NULL, &rectScore4);
+    }
+    //f(nbJoueur>=5){
+    //   int tailleScore5 = 200;
+    //   int debutScore5 = 10+10+10;
+    //   SDL_Rect rectScore5 = {debutScore5, SCREEN_HEIGHT_DEFAULT+5 - 40, tailleScore5, 30};
+    //   SDL_RenderCopy(game.window.renderer, game.graphic.textScore[game.scores[4]], NULL, &rectScore5);
+    //
+
     SDL_SetRenderDrawColor(game.window.renderer, 0, 0, 0, 255);
 }
