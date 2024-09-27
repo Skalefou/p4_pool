@@ -6,9 +6,12 @@
 #define GAME_H
 
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_mixer.h>
 #include "Window.h"
 #include "Graphic.h"
 #include "Map.h"
+
+
 
 int gameInit();
 void gameClickEvent(const int x, const int y);

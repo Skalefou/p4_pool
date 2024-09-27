@@ -4,6 +4,15 @@
 Game game;
 
 int gameInit() {
+    if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) {
+        printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
+        return 1;
+    }
+
+    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0) {
+        printf("SDL_mixer could not initialize! SDL_mixer Error: %s\n", Mix_GetError());
+        return 1;
+    }
     if (windowInit()) {
         return 1;
     }
@@ -22,6 +31,7 @@ int gameInit() {
 }
 
 void gameClose() {
+    //Mix_CloseAudio();
     mapClose();
     graphicClose();
     windowClose();
@@ -91,6 +101,13 @@ void gameRuntime() {
         return;
     }
 
+    Mix_Music *bgMusic = Mix_LoadMUS("./resource/musique.mp3");
+    if (!bgMusic) {
+        printf("Failed to load background music! SDL_mixer Error: %s\n", Mix_GetError());
+    } else {
+        Mix_PlayMusic(bgMusic, -1); // Play music indefinitely
+    }
+
     SDL_Event event;
     int run = 1;
 
@@ -125,7 +142,6 @@ void gameRuntime() {
         SDL_RenderClear(game.window.renderer);
         graphicDisplayGrid();
         graphicsDisplayJeton();
-        graphicDisplayTurn(game.turnPlayer);
         bandeau();
 
         if (game.playerWin > 0) {
@@ -133,8 +149,8 @@ void gameRuntime() {
         }
 
         SDL_RenderPresent(game.window.renderer);
-
     }
 
+    Mix_FreeMusic(bgMusic);
     gameClose();
 }
