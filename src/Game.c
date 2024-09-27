@@ -1,5 +1,6 @@
 
 #include "Game.h"
+#include "Network.h"
 
 Game game;
 
@@ -20,12 +21,25 @@ int gameInit() {
         return 1;
     }
 
+    if (game.config.modeOnline == 1) {
+        if (networkInitServeur()) {
+            return 1;
+        }
+    } else if (game.config.modeOnline == 2) {
+        if (networkInitClient()) {
+            return 1;
+        }
+    }
+
     game.turnPlayer = 0;
     game.playerWin = 0;
     return 0;
 }
 
 void gameClose() {
+    if (game.config.modeOnline == 1 || game.config.modeOnline == 2) {
+        networkCloseServeur();
+    }
     configClose();
     mapClose();
     graphicClose();
@@ -161,6 +175,15 @@ void gameRuntime() {
                 }
             }
         }
+        // Network
+        if (game.config.modeOnline == 1) {
+            networkServeurRuntime();
+            if (game.network.nbClientsConnect > 0) {
+                networkServerSendData();
+            }
+        } else if (game.config.modeOnline == 2) {
+            networkClientReceiveData();
+        }
 
         // Affichage
         SDL_RenderClear(game.window.renderer);
@@ -173,7 +196,7 @@ void gameRuntime() {
         }
 
         SDL_RenderPresent(game.window.renderer);
-
+        SDL_Delay(16);
     }
 
     gameClose();

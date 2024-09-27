@@ -19,6 +19,11 @@ add_executable(p4_pool src/main.c
         src/Window.h
         src/Graphic.c
         src/Map.c
-        src/Config.c)
+        src/Config.c
+        src/Network.c
+        src/Network.h
+        src/cJSON.c
+        src/cJSON.h
+)
 
 target_link_libraries(p4_pool ${SDL2_LIBRARIES} ${SDL2_image_LIBRARIES} ${SDL2_net_LIBRARIES} ${SDL2_ttf_LIBRARIES})

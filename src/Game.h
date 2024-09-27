@@ -10,6 +10,7 @@
 #include "Graphic.h"
 #include "Map.h"
 #include "Config.h"
+#include "Network.h"
 
 int gameInit();
 void gameClickEvent(const int x, const int y);
@@ -28,6 +29,7 @@ typedef struct {
     int playerWin;
     Map map;
     Config config;
+    Network network;
 } Game;
 
 extern Game game;
