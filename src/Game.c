@@ -1,5 +1,6 @@
 
 #include "Game.h"
+#include "SDL_image.h"
 
 Game game;
 
@@ -95,6 +96,48 @@ int gameIsWin() {
     return a+b+c > 0 ? a+b+c : 0;
 }
 
+int gameGo() {
+    SDL_Surface *image = IMG_Load("./resource/go.png");
+    if (!image) {
+        printf("Failed to load image! SDL_image Error: %s\n", IMG_GetError());
+        return 1;
+    }
+
+    SDL_Texture *texture = SDL_CreateTextureFromSurface(game.window.renderer, image);
+    SDL_FreeSurface(image);
+    if (!texture) {
+        printf("Failed to create texture! SDL Error: %s\n", SDL_GetError());
+        return 1;
+    }
+
+    SDL_Rect rect = {0, 0, image->w / 2, image->h / 2};
+    double angle = 0.0;
+    int run = 1;
+
+    while (run) {
+        SDL_Event event;
+        while (SDL_PollEvent(&event)) {
+            if (event.type == SDL_QUIT) {
+                run = 0;
+            } else if (event.type == SDL_KEYUP && event.key.keysym.sym == SDLK_i) {
+                run = 0;
+            }
+        }
+
+        const Uint8 *state = SDL_GetKeyboardState(NULL);
+        if (state[SDL_SCANCODE_I]) {
+            angle += 0.1;
+        }
+
+        SDL_RenderClear(game.window.renderer);
+        SDL_RenderCopyEx(game.window.renderer, texture, NULL, &rect, angle, NULL, SDL_FLIP_NONE);
+        SDL_RenderPresent(game.window.renderer);
+    }
+
+    SDL_DestroyTexture(texture);
+    return 0;
+}
+
 void gameRuntime() {
     if (gameInit()) {
         gameClose();
@@ -118,6 +161,8 @@ void gameRuntime() {
             } else if (event.type == SDL_KEYDOWN && game.playerWin == 0) {
                 if (event.key.keysym.sym == SDLK_ESCAPE) {
                     run = 0;
+                } else if (event.key.keysym.sym == SDLK_g) {
+                    gameGo();
                 }
             } else if (event.type == SDL_KEYDOWN && game.playerWin > 0) {
                 if (event.key.keysym.sym == SDLK_ESCAPE) {
@@ -136,6 +181,11 @@ void gameRuntime() {
                     gameInit();
                 }
             }
+        }
+
+        const Uint8 *state = SDL_GetKeyboardState(NULL);
+        if (state[SDL_SCANCODE_I]) {
+            gameGo();
         }
 
         // Affichage
